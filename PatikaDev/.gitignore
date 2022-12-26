@@ -1,0 +1,10 @@
+.idea/
+.mvn/
+target/
+mvnw
+mvnw.cmd
+PatikaDev.iml
+pom.xml
+src/main/java/com/PatikaDev/Helper/Config.java
+src/main/resources/
+src/postgresql-42.5.1.jar
