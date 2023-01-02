@@ -115,8 +115,31 @@ public class User {
         }
         return true;
     }
+    public static boolean add(String name, String username, String password) {
+        String query = "INSERT INTO users(name,username,password,type) VALUES(?,?,?,?::typename)";
+        User findUser = User.getFetch(username);
+        if (findUser != null) {
+            Helper.showMessages("Lütfen farklı bir kullanıcı adı giriniz.");
+            return false;
+        }
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1, name);
+            pr.setString(2, username);
+            pr.setString(3, password);
+            pr.setString(4, "student");
+            int response = pr.executeUpdate();
+            if (response == -1) {
+                Helper.showMessages("error");
+            }
+            return response != -1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
 
-    public static User getFetch(String username) {
+        public static User getFetch(String username) {
         User obj = null;
         String query = "SELECT * FROM users WHERE username=?";
         try {
@@ -245,12 +268,10 @@ public class User {
             pr.setString(2,password);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
-                switch (rs.getString("type")){
-                    case "operator":
-                        obj= new Operator();
-                        break;
-                    default:
-                        obj = new User();
+                if ("operator".equals(rs.getString("type"))) {
+                    obj = new Operator();
+                } else {
+                    obj = new User();
                 }
                 obj.setId(rs.getInt("id"));
                 obj.setName(rs.getString("name"));
