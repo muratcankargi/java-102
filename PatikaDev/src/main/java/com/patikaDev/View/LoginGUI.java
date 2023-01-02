@@ -6,9 +6,6 @@ import com.patikaDev.Model.Operator;
 import com.patikaDev.Model.User;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class LoginGUI extends JFrame{
     private JPanel wrapper;
     private JPanel wtop;
@@ -16,6 +13,7 @@ public class LoginGUI extends JFrame{
     private JTextField txt_user_usarname;
     private JPasswordField txt_user_pass;
     private JButton btn_login;
+    private JButton btn_register;
 
     public LoginGUI(){
         add(wrapper);
@@ -50,6 +48,11 @@ public class LoginGUI extends JFrame{
                 dispose();
             }
         }
+        });
+
+        btn_register.addActionListener(e -> {
+            RegisterGUI registerGUI= new RegisterGUI();
+            dispose();
         });
     }
 
