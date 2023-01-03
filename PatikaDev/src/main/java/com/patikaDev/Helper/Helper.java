@@ -5,15 +5,11 @@ import java.awt.*;
 
 public class Helper {
     public static int screenCenterPoint(String position, Dimension size) {
-        int point = 0;
-        switch (position) {
-            case "x":
-                point = (Toolkit.getDefaultToolkit().getScreenSize().width - size.width) / 2;
-                break;
-            case "y":
-                point = (Toolkit.getDefaultToolkit().getScreenSize().height - size.height) / 2;
-                break;
-        }
+        int point = switch (position) {
+            case "x" -> (Toolkit.getDefaultToolkit().getScreenSize().width - size.width) / 2;
+            case "y" -> (Toolkit.getDefaultToolkit().getScreenSize().height - size.height) / 2;
+            default -> 0;
+        };
         return point;
     }
 
@@ -60,12 +56,10 @@ public class Helper {
     public static boolean confirm(String str){
         optionPageTR();
         String msg;
-        switch (str){
-            case "sure":
-                msg="Bu işlemi gerçekleştirmek istediğinize emin misiniz?";
-                break;
-            default:
-                msg=str;
+        if ("sure".equals(str)) {
+            msg = "Bu işlemi gerçekleştirmek istediğinize emin misiniz?";
+        } else {
+            msg = str;
         }
          return  JOptionPane.showConfirmDialog(null,msg,"Karar",JOptionPane.YES_NO_OPTION) == 0;
     }
