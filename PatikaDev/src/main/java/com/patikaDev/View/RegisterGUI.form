@@ -102,7 +102,7 @@
               <text value="Şifre"/>
             </properties>
           </component>
-          <component id="4cc0d" class="javax.swing.JTextField" binding="txt_user_password">
+          <component id="2f15f" class="javax.swing.JPasswordField" binding="txt_user_password">
             <constraints>
               <grid row="6" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
