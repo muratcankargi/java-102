@@ -18,6 +18,9 @@ public class StudentGUI extends JFrame{
     private JLabel lbl_hosgeldin;
     private JButton btn_exit;
     private JButton btn_patika_katil;
+    private JComboBox comboBox1;
+    private JTable table1;
+    private JButton içerikleriGösterButton;
     private DefaultTableModel mdl_patika_list;
     private Object[] row_patika_list;
 
