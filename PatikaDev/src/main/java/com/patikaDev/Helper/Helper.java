@@ -1,7 +1,11 @@
 package com.patikaDev.Helper;
 
+import com.patikaDev.Model.Patika;
+import javafx.scene.control.ComboBox;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Helper {
     public static int screenCenterPoint(String position, Dimension size) {
@@ -68,6 +72,28 @@ public class Helper {
         UIManager.put("OptionPane.okButtonText","Tamam");
         UIManager.put("OptionPane.yesButtonText","Evet");
         UIManager.put("OptionPane.noButtonText","Hayır");
+    }
+
+    public static boolean isAdded(ArrayList<String> patikalarim,String str) {
+        for (String ptk : patikalarim) {
+            if (str.equals(ptk)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Integer getPatikaId(String patikaName){
+        for(Patika p:Patika.getList())
+            if(p.getName().equals(patikaName)){
+                return p.getId();
+        }
+        return -1;
+    }
+    public static String searchQuery(String name) {
+        String query = "SELECT * FROM course WHERE name ILIKE '%{{name}}%'";
+        query = query.replace("{{name}}", name);
+        return query;
     }
 
 }
