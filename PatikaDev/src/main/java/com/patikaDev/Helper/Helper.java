@@ -1,8 +1,6 @@
 package com.patikaDev.Helper;
 
 import com.patikaDev.Model.Patika;
-import javafx.scene.control.ComboBox;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -89,6 +87,13 @@ public class Helper {
                 return p.getId();
         }
         return -1;
+    }
+    public static String getPatikaName(Integer patikaId){
+        for(Patika p:Patika.getList())
+            if(p.getId()==patikaId){
+                return p.getName();
+            }
+        return "";
     }
     public static String searchQuery(String name) {
         String query = "SELECT * FROM course WHERE name ILIKE '%{{name}}%'";
