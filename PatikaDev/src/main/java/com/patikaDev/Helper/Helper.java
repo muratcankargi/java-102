@@ -100,5 +100,4 @@ public class Helper {
         query = query.replace("{{name}}", name);
         return query;
     }
-
 }
