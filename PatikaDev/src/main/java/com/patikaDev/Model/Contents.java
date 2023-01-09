@@ -1,6 +1,7 @@
 package com.patikaDev.Model;
 
 import com.patikaDev.Helper.DBConnector;
+import com.patikaDev.Helper.Helper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +22,14 @@ public class Contents {
         this.link = link;
         this.patika_id = patika_id;
     }
+    private Contents(){}
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -73,5 +79,43 @@ public class Contents {
             throw new RuntimeException(e);
         }
         return contentsList;
+    }
+    public static ArrayList<Contents> searchContentsList(String query) {
+        ArrayList<Contents> contentsList = new ArrayList<>();
+        Contents obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                obj = new Contents();
+                obj.setId(rs.getInt("id"));
+                obj.setTitle(rs.getString("title"));
+                obj.setExplanation(rs.getString("explanation"));
+                obj.setLink(rs.getString("link"));
+                obj.setPatika_id(rs.getInt("patika_id"));
+                contentsList.add(obj);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return contentsList;
+    }
+    public static String searchQuery(String title) {
+        String query = "SELECT * FROM contents WHERE title ILIKE '%{{title}}%'";
+        query = query.replace("{{title}}", title);
+        return query;
+    }
+    public static String searchQuery(String title, String education) {
+        String query = "SELECT * FROM contents WHERE title ILIKE '%{{title}}%' ";
+        query = query.replace("{{title}}", title);
+        if(!education.equals("Tümü")){
+            int id=Helper.getPatikaId(education);
+            query+="AND patika_id='{{patika_id}}'";
+            query=query.replace("{{patika_id}}",String.valueOf(id));
+        }
+
+        return query;
     }
 }
