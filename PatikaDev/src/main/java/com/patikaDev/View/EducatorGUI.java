@@ -4,6 +4,7 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Course;
+import com.patikaDev.Model.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,12 +23,13 @@ public class EducatorGUI extends JFrame {
     private JTable tbl_contents;
     private JTextField txt_content_baslik;
     private JComboBox cmb_egitim_adi;
-    private JComboBox comboBox1;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JButton içerikEkleButton;
+    private JComboBox cmb_egitim_adi_2;
+    private JTextField txt_content_title;
+    private JTextField txt_content_explanation;
+    private JButton btn_contents_add;
     private JLabel lbl_content_id;
     private JButton içerikSilButton;
+    private JTextField txt_content_link;
     private DefaultTableModel mdl_education_list;
     private Object[] row_education_list;
     private DefaultTableModel mdl_contents_list;
@@ -86,6 +88,26 @@ public class EducatorGUI extends JFrame {
                 loadContentsModel(Contents.searchContentsList(query));
             }
         });
+
+        btn_contents_add.addActionListener(e -> {
+            if (Helper.isFieldEmpty(txt_content_title) || Helper.isFieldEmpty(txt_content_explanation)||Helper.isFieldEmpty(txt_content_link)) {
+                Helper.showMessages("fill");
+            } else {
+
+                String title=txt_content_title.getText();
+                String explanation=txt_content_explanation.getText();
+                String link=txt_content_link.getText();
+                int patika_id=Helper.getPatikaId(cmb_egitim_adi_2.getSelectedItem().toString());
+                if (Contents.add(title, explanation,link,patika_id)) {
+                    Helper.showMessages("done");
+                    loadContensModel();
+                    loadEducationModel();
+                    txt_content_title.setText(null);
+                    txt_content_explanation.setText(null);
+                    txt_content_link.setText(null);
+                }
+            }
+        });
     }
 
     private void loadEducationModel() {
@@ -131,14 +153,16 @@ public class EducatorGUI extends JFrame {
             row_contents_list[i++] = obj.getLink();
             row_contents_list[i] = Helper.getPatikaName(obj.getPatika_id());
             mdl_contents_list.addRow(row_contents_list);
-            int counter=0;
-            for(int j=0;j<cmb_egitim_adi.getItemCount();j++) {
+            int counter = 0;
+            for (int j = 0; j < cmb_egitim_adi.getItemCount(); j++) {
                 if (cmb_egitim_adi.getItemAt(j).equals(Helper.getPatikaName(obj.getPatika_id()))) {
                     counter++;
                 }
             }
-            if(counter==0)
+            if (counter == 0) {
                 cmb_egitim_adi.addItem(Helper.getPatikaName(obj.getPatika_id()));
+                cmb_egitim_adi_2.addItem(Helper.getPatikaName(obj.getPatika_id()));
+            }
         }
 
 
