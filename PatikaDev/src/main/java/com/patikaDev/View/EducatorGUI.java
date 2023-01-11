@@ -27,14 +27,15 @@ public class EducatorGUI extends JFrame {
     private JTextField txt_content_title;
     private JTextField txt_content_explanation;
     private JButton btn_contents_add;
-    private JLabel lbl_content_id;
-    private JButton içerikSilButton;
     private JTextField txt_content_link;
     private DefaultTableModel mdl_education_list;
     private Object[] row_education_list;
     private DefaultTableModel mdl_contents_list;
     private Object[] row_contents_list;
+    private JLabel lbl_content_id;
+    private JButton btn_content_delete;
     static String userName;
+
 
     public EducatorGUI(String username) {
         userName = username;
@@ -108,6 +109,27 @@ public class EducatorGUI extends JFrame {
                 }
             }
         });
+        tbl_contents.getSelectionModel().addListSelectionListener(e -> {
+            String selected_user_id = tbl_contents.getSelectedRow() != -1 ? tbl_contents.getValueAt(tbl_contents.getSelectedRow(), 0).toString() : null;
+            lbl_content_id.setText(selected_user_id);
+        });
+        btn_content_delete.addActionListener(e -> {
+            if (lbl_content_id.getText().equals("")) {
+                Helper.showMessages("fill");
+            } else {
+                if (Helper.confirm("sure")) {
+                    int user_id = Integer.parseInt(lbl_content_id.getText());
+                    if (Contents.delete(user_id)) {
+                        Helper.showMessages("done");
+                        loadEducationModel();
+                        loadContensModel();
+                        lbl_content_id.setText(null);
+                    } else {
+                        Helper.showMessages("error");
+                    }
+                }
+            }
+        });
     }
 
     private void loadEducationModel() {
@@ -123,6 +145,7 @@ public class EducatorGUI extends JFrame {
                 mdl_education_list.addRow(row_education_list);
 
                 lbl_welcome.setText("Hoşgeldin," + obj.getEducator().getName());
+                lbl_content_id.setText("");
             }
         }
     }
