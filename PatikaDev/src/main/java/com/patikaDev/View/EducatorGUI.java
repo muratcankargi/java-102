@@ -106,6 +106,8 @@ public class EducatorGUI extends JFrame {
                     txt_content_title.setText(null);
                     txt_content_explanation.setText(null);
                     txt_content_link.setText(null);
+                    txt_content_baslik.setText(null);
+                    cmb_egitim_adi.setSelectedIndex(0);
                 }
             }
         });
@@ -123,7 +125,9 @@ public class EducatorGUI extends JFrame {
                         Helper.showMessages("done");
                         loadEducationModel();
                         loadContensModel();
-                        lbl_content_id.setText(null);
+                        lbl_content_id.setText("");
+                        txt_content_baslik.setText(null);
+                        cmb_egitim_adi.setSelectedIndex(0);
                     } else {
                         Helper.showMessages("error");
                     }
