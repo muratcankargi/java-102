@@ -4,7 +4,6 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Course;
-import com.patikaDev.Model.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -32,8 +31,12 @@ public class EducatorGUI extends JFrame {
     private Object[] row_education_list;
     private DefaultTableModel mdl_contents_list;
     private Object[] row_contents_list;
+    private DefaultTableModel mdl_questions_list;
+    private Object[] row_questions_list;
     private JLabel lbl_content_id;
     private JButton btn_content_delete;
+    private JTable tbl_questions;
+
     static String userName;
 
 
@@ -134,6 +137,14 @@ public class EducatorGUI extends JFrame {
                 }
             }
         });
+
+        mdl_questions_list = new DefaultTableModel();
+        Object[] col_questions_list = {"Id", "Soru", "Doğru Cevap", "Yanlış Cevap", "Yanlış Cevap","Yanlış Cevap","İçerik Adı"};
+        mdl_questions_list.setColumnIdentifiers(col_questions_list);
+        row_questions_list = new Object[col_questions_list.length];
+        loadQuestionsModel();
+        tbl_questions.setModel(mdl_questions_list);
+        tbl_questions.getTableHeader().setReorderingAllowed(false);
     }
 
     private void loadEducationModel() {
@@ -207,6 +218,23 @@ public class EducatorGUI extends JFrame {
             row_contents_list[i++] = obj.getLink();
             row_contents_list[i] = Helper.getPatikaName(obj.getPatika_id());
             mdl_contents_list.addRow(row_contents_list);
+        }
+    }
+    private void loadQuestionsModel() {
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_education.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        for (Course obj : Course.getList()) {
+            i = 0;
+            if (obj.getEducator().getUsername().equals(userName)) {
+                row_education_list[i++] = obj.getId();
+                row_education_list[i++] = obj.getName();
+                row_education_list[i++] = obj.getLanguage();
+                mdl_education_list.addRow(row_education_list);
+
+                lbl_welcome.setText("Hoşgeldin," + obj.getEducator().getName());
+                lbl_content_id.setText("");
+            }
         }
     }
 }
