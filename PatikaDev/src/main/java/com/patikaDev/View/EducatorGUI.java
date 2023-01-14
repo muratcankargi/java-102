@@ -4,6 +4,7 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Course;
+import com.patikaDev.Model.Questions;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -94,15 +95,15 @@ public class EducatorGUI extends JFrame {
         });
 
         btn_contents_add.addActionListener(e -> {
-            if (Helper.isFieldEmpty(txt_content_title) || Helper.isFieldEmpty(txt_content_explanation)||Helper.isFieldEmpty(txt_content_link)) {
+            if (Helper.isFieldEmpty(txt_content_title) || Helper.isFieldEmpty(txt_content_explanation) || Helper.isFieldEmpty(txt_content_link)) {
                 Helper.showMessages("fill");
             } else {
 
-                String title=txt_content_title.getText();
-                String explanation=txt_content_explanation.getText();
-                String link=txt_content_link.getText();
-                int patika_id=Helper.getPatikaId(cmb_egitim_adi_2.getSelectedItem().toString());
-                if (Contents.add(title, explanation,link,patika_id)) {
+                String title = txt_content_title.getText();
+                String explanation = txt_content_explanation.getText();
+                String link = txt_content_link.getText();
+                int patika_id = Helper.getPatikaId(cmb_egitim_adi_2.getSelectedItem().toString());
+                if (Contents.add(title, explanation, link, patika_id)) {
                     Helper.showMessages("done");
                     loadContensModel();
                     loadEducationModel();
@@ -139,7 +140,7 @@ public class EducatorGUI extends JFrame {
         });
 
         mdl_questions_list = new DefaultTableModel();
-        Object[] col_questions_list = {"Id", "Soru", "Doğru Cevap", "Yanlış Cevap", "Yanlış Cevap","Yanlış Cevap","İçerik Adı"};
+        Object[] col_questions_list = {"Id", "Soru", "Doğru Cevap", "Yanlış Cevap", "Yanlış Cevap", "Yanlış Cevap", "İçerik Adı"};
         mdl_questions_list.setColumnIdentifiers(col_questions_list);
         row_questions_list = new Object[col_questions_list.length];
         loadQuestionsModel();
@@ -160,7 +161,7 @@ public class EducatorGUI extends JFrame {
                 mdl_education_list.addRow(row_education_list);
 
                 lbl_welcome.setText("Hoşgeldin," + obj.getEducator().getName());
-                lbl_content_id.setText("");
+                lbl_content_id.setText(null);
             }
         }
     }
@@ -220,21 +221,21 @@ public class EducatorGUI extends JFrame {
             mdl_contents_list.addRow(row_contents_list);
         }
     }
+
     private void loadQuestionsModel() {
-        DefaultTableModel clearModel = (DefaultTableModel) tbl_education.getModel();
+        DefaultTableModel clearModel = (DefaultTableModel) tbl_questions.getModel();
         clearModel.setRowCount(0);
         int i;
-        for (Course obj : Course.getList()) {
+        for (Questions obj : Questions.getList()) {
             i = 0;
-            if (obj.getEducator().getUsername().equals(userName)) {
-                row_education_list[i++] = obj.getId();
-                row_education_list[i++] = obj.getName();
-                row_education_list[i++] = obj.getLanguage();
-                mdl_education_list.addRow(row_education_list);
-
-                lbl_welcome.setText("Hoşgeldin," + obj.getEducator().getName());
-                lbl_content_id.setText("");
-            }
+            row_questions_list[i++] = obj.getId();
+            row_questions_list[i++] = obj.getQuestion();
+            row_questions_list[i++] = obj.getTrue_answer();
+            row_questions_list[i++] = obj.getWrong_answer_1();
+            row_questions_list[i++] = obj.getWrong_answer_2();
+            row_questions_list[i++] = obj.getWrong_answer_3();
+            row_questions_list[i] = obj.getContents_title();
+            mdl_questions_list.addRow(row_questions_list);
         }
     }
 }
