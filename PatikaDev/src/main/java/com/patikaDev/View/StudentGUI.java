@@ -7,6 +7,8 @@ import com.patikaDev.Model.Patika;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class StudentGUI extends JFrame {
@@ -24,6 +26,10 @@ public class StudentGUI extends JFrame {
     private JTable tbl_contents;
     private JButton btn_contents;
     private JTextArea txtarea_katildiginiz_patikalar;
+    private JPanel pnl_giris;
+    private JComboBox cmb_patika;
+    private JComboBox cmb_contents;
+    private JButton btn_start;
     private DefaultTableModel mdl_patika_list;
     private Object[] row_patika_list;
     private DefaultTableModel mdl_contents_list;
@@ -58,16 +64,17 @@ public class StudentGUI extends JFrame {
             dispose();
         });
         btn_patika_katil.addActionListener(e -> {
-            if(!Helper.isAdded(patikalarim,txt_patikalar.getText())){
+            if (!Helper.isAdded(patikalarim, txt_patikalar.getText())) {
                 patikalarim.add(txt_patikalar.getText());
-                txtarea_katildiginiz_patikalar.setText(txtarea_katildiginiz_patikalar.getText()+txt_patikalar.getText()+"\n");
+                txtarea_katildiginiz_patikalar.setText(txtarea_katildiginiz_patikalar.getText() + txt_patikalar.getText() + "\n");
                 cmb_patikalarim.addItem(txt_patikalar.getText());
+                cmb_patika.addItem(txt_patikalar.getText());
             }
 
         });
         btn_contents.addActionListener(e -> {
             mdl_contents_list = new DefaultTableModel();
-            Object[] col_contents_list = {"ID", "Başlık","Açıklama","Link"};
+            Object[] col_contents_list = {"ID", "Başlık", "Açıklama", "Link"};
             mdl_contents_list.setColumnIdentifiers(col_contents_list);
             row_contents_list = new Object[col_contents_list.length];
             loadContensModel();
@@ -78,6 +85,17 @@ public class StudentGUI extends JFrame {
         });
 
 
+        cmb_patika.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cmb_contents.removeAll();
+                for(Contents c:Contents.getList()){
+                    if(c.getPatika_id()==Helper.getPatikaId(cmb_patika.getSelectedItem().toString())){
+                        cmb_contents.addItem(c.getTitle());
+                    }
+                }
+            }
+        });
     }
 
     private void loadPatikaModel() {
@@ -90,20 +108,24 @@ public class StudentGUI extends JFrame {
             row_patika_list[i++] = obj.getName();
             mdl_patika_list.addRow(row_patika_list);
         }
+
+
     }
-    private void loadContensModel(){
+
+    private void loadContensModel() {
         DefaultTableModel clearModel = (DefaultTableModel) tbl_contents.getModel();
         clearModel.setRowCount(0);
         int i;
 
         for (Contents obj : Contents.getList()) {
             i = 0;
-            if(obj.getPatika_id()==Helper.getPatikaId(cmb_patikalarim.getSelectedItem().toString())){
-            row_contents_list[i++] = obj.getId();
-            row_contents_list[i++] = obj.getTitle();
-            row_contents_list[i++]=obj.getExplanation();
-            row_contents_list[i]=obj.getLink();
-            mdl_contents_list.addRow(row_contents_list);
-        }}
+            if (obj.getPatika_id() == Helper.getPatikaId(cmb_patikalarim.getSelectedItem().toString())) {
+                row_contents_list[i++] = obj.getId();
+                row_contents_list[i++] = obj.getTitle();
+                row_contents_list[i++] = obj.getExplanation();
+                row_contents_list[i] = obj.getLink();
+                mdl_contents_list.addRow(row_contents_list);
+            }
+        }
     }
 }
