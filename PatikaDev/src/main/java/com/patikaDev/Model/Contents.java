@@ -120,15 +120,14 @@ public class Contents {
         return query;
     }
     public static boolean add(String title, String explanation,String link, int patika_id) {
-        String query = "INSERT INTO contents(title,explanation,link,quiz_questions,patika_id) VALUES(?,?,?,?,?)";
+        String query = "INSERT INTO contents(title,explanation,link,patika_id) VALUES(?,?,?,?)";
 
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
             pr.setString(1, title);
             pr.setString(2, explanation);
             pr.setString(3, link);
-            pr.setString(4, "");
-            pr.setInt(5,patika_id);
+            pr.setInt(4,patika_id);
             int response = pr.executeUpdate();
             if (response == -1) {
                 Helper.showMessages("error");
