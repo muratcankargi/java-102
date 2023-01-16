@@ -73,7 +73,7 @@ public class EducatorGUI extends JFrame {
 
 
         mdl_contents_list = new DefaultTableModel();
-        Object[] col_contents_list = {"Id", "Başlık", "Açıklama", "Link", "Patika Adı"};
+        Object[] col_contents_list = {"Id", "Başlık", "Açıklama","Link","Patika Adı"};
         mdl_contents_list.setColumnIdentifiers(col_contents_list);
         row_contents_list = new Object[col_contents_list.length];
         loadContensModel();
