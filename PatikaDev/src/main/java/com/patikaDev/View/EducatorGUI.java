@@ -4,14 +4,12 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Course;
+import com.patikaDev.Model.Patika;
 import com.patikaDev.Model.Questions;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class EducatorGUI extends JFrame {
@@ -36,6 +34,7 @@ public class EducatorGUI extends JFrame {
     private Object[] row_questions_list;
     private JLabel lbl_content_id;
     private JButton btn_content_delete;
+    private JPopupMenu patikaMenu; //düzeltilecek
     private JTable tbl_questions;
 
     static String userName;
@@ -146,6 +145,25 @@ public class EducatorGUI extends JFrame {
         loadQuestionsModel();
         tbl_questions.setModel(mdl_questions_list);
         tbl_questions.getTableHeader().setReorderingAllowed(false);
+/* düzeltilecek
+        patikaMenu = new JPopupMenu();
+        JMenuItem updateMenu = new JMenuItem("Güncelle");
+        JMenuItem deleteMenu = new JMenuItem("Sil");
+        patikaMenu.add(updateMenu);
+        patikaMenu.add(deleteMenu);
+
+        updateMenu.addActionListener(e -> {
+            int select_id = Integer.parseInt(tbl_contents.getValueAt(tbl_contents.getSelectedRow(), 0).toString());
+            UpdatePatikaGUI updateGUI = new UpdatePatikaGUI(Patika.getFetch(select_id));
+            updateGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    loadContensModel();
+                    loadEducationModel();
+                    loadQuestionsModel();
+                }
+            });
+        });*/
     }
 
     private void loadEducationModel() {
