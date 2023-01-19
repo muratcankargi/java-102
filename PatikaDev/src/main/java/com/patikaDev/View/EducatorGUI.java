@@ -9,6 +9,7 @@ import com.patikaDev.Model.Questions;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -70,6 +71,31 @@ public class EducatorGUI extends JFrame {
             }
         });
 
+        patikaMenu = new JPopupMenu();
+        JMenuItem updateMenu = new JMenuItem("Soru Ekle");
+        patikaMenu.add(updateMenu);
+
+        updateMenu.addActionListener(e -> {
+            int select_id = Integer.parseInt(tbl_contents.getValueAt(tbl_contents.getSelectedRow(), 0).toString());
+            UpdatePatikaGUI updateGUI = new UpdatePatikaGUI(Patika.getFetch(select_id));
+            updateGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    loadContensModel();
+                    loadEducationModel();
+                    loadQuestionsModel();
+                }
+            });
+        });
+
+        tbl_contents.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Point point = e.getPoint();
+                int select_row = tbl_contents.rowAtPoint(point);
+                tbl_contents.setRowSelectionInterval(select_row, select_row);
+            }
+        });
 
         mdl_contents_list = new DefaultTableModel();
         Object[] col_contents_list = {"Id", "Başlık", "Açıklama","Link","Patika Adı"};
@@ -77,6 +103,7 @@ public class EducatorGUI extends JFrame {
         row_contents_list = new Object[col_contents_list.length];
         loadContensModel();
         tbl_contents.setModel(mdl_contents_list);
+        tbl_contents.setComponentPopupMenu(patikaMenu);
         tbl_contents.getTableHeader().setReorderingAllowed(false);
         txt_content_baslik.addKeyListener(new KeyAdapter() {
             @Override
@@ -145,25 +172,10 @@ public class EducatorGUI extends JFrame {
         loadQuestionsModel();
         tbl_questions.setModel(mdl_questions_list);
         tbl_questions.getTableHeader().setReorderingAllowed(false);
-/* düzeltilecek
-        patikaMenu = new JPopupMenu();
-        JMenuItem updateMenu = new JMenuItem("Güncelle");
-        JMenuItem deleteMenu = new JMenuItem("Sil");
-        patikaMenu.add(updateMenu);
-        patikaMenu.add(deleteMenu);
 
-        updateMenu.addActionListener(e -> {
-            int select_id = Integer.parseInt(tbl_contents.getValueAt(tbl_contents.getSelectedRow(), 0).toString());
-            UpdatePatikaGUI updateGUI = new UpdatePatikaGUI(Patika.getFetch(select_id));
-            updateGUI.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    loadContensModel();
-                    loadEducationModel();
-                    loadQuestionsModel();
-                }
-            });
-        });*/
+
+
+
     }
 
     private void loadEducationModel() {
