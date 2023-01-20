@@ -1,12 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.patikaDev.View.AddQuestionGUI">
-  <grid id="27dc6" binding="wrapper" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="wrapper" layout-manager="GridLayoutManager" row-count="12" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="632" height="459"/>
     </constraints>
     <properties/>
     <border type="none"/>
-    <children/>
+    <children>
+      <component id="e3752" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Soru ekle"/>
+        </properties>
+      </component>
+      <component id="51f2f" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Soru"/>
+        </properties>
+      </component>
+      <component id="d733" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Doğru Cevap"/>
+        </properties>
+      </component>
+      <component id="52e8" class="javax.swing.JTextField" binding="txt_true_answer">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="300" height="25"/>
+            <preferred-size width="300" height="25"/>
+            <maximum-size width="300" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="41eee" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Yanlış Cevap"/>
+        </properties>
+      </component>
+      <component id="c4bda" class="javax.swing.JTextField" binding="txt_false_answer_1">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="300" height="25"/>
+            <preferred-size width="300" height="25"/>
+            <maximum-size width="300" height="25"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="230f0" class="javax.swing.JTextField" binding="txt_false_answer_3">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="300" height="25"/>
+            <preferred-size width="300" height="25"/>
+            <maximum-size width="300" height="25"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="66894" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Yanlış Cevap"/>
+        </properties>
+      </component>
+      <component id="5424b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Yanlış Cevap"/>
+        </properties>
+      </component>
+      <component id="2643a" class="javax.swing.JButton" binding="btn_question_add">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <margin top="1" left="1" bottom="1" right="1"/>
+          <text value="Soru Ekle"/>
+        </properties>
+      </component>
+      <component id="1b8c5" class="javax.swing.JTextField" binding="txt_false_answer_2">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="300" height="25"/>
+            <preferred-size width="300" height="25"/>
+            <maximum-size width="300" height="25"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="98f5b" class="javax.swing.JButton" binding="btn_exit">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Çıkış"/>
+        </properties>
+      </component>
+      <component id="20cd6" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="500" height="100"/>
+            <preferred-size width="500" height="100"/>
+            <maximum-size width="500" height="100"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+    </children>
   </grid>
 </form>
