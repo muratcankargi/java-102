@@ -50,6 +50,7 @@ public class EducatorGUI extends JFrame {
         setTitle(Config.PROJECT_TITLE);
         setResizable(false);
         setVisible(true);
+        Helper.setLayout();
         btn_exit.addActionListener(e -> {
             LoginGUI loginGUI = new LoginGUI();
             dispose();
@@ -76,9 +77,9 @@ public class EducatorGUI extends JFrame {
         patikaMenu.add(updateMenu);
 
         updateMenu.addActionListener(e -> {
-            int select_id = Integer.parseInt(tbl_contents.getValueAt(tbl_contents.getSelectedRow(), 0).toString());
-            UpdatePatikaGUI updateGUI = new UpdatePatikaGUI(Patika.getFetch(select_id));
-            updateGUI.addWindowListener(new WindowAdapter() {
+            String contents_title=tbl_contents.getValueAt(tbl_contents.getSelectedRow(),1).toString();
+            AddQuestionGUI addQuestionGUI= new AddQuestionGUI(contents_title);
+            addQuestionGUI.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     loadContensModel();
