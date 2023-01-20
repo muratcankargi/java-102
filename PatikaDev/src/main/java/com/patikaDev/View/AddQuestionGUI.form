@@ -8,14 +8,6 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="e3752" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Soru ekle"/>
-        </properties>
-      </component>
       <component id="51f2f" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -115,15 +107,23 @@
           <text value="Çıkış"/>
         </properties>
       </component>
-      <component id="20cd6" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+      <component id="434d" class="javax.swing.JTextField" binding="txt_question">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="500" height="100"/>
-            <preferred-size width="500" height="100"/>
-            <maximum-size width="500" height="100"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties/>
+      </component>
+      <component id="e3752" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <autoscrolls value="false"/>
+          <opaque value="false"/>
+          <text value="Soru ekle"/>
+        </properties>
       </component>
     </children>
   </grid>
