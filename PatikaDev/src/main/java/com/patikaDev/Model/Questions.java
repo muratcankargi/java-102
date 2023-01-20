@@ -2,6 +2,7 @@ package com.patikaDev.Model;
 
 import com.patikaDev.Helper.DBConnector;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,6 +82,7 @@ public class Questions {
     public void setContents_title(String contents_title) {
         this.contents_title = contents_title;
     }
+
     public static ArrayList<Questions> getList() {
         ArrayList<Questions> questionsList = new ArrayList<>();
         Questions obj;
@@ -95,12 +97,31 @@ public class Questions {
                 String wrong_answer_2 = rs.getString("wrong_answer_2");
                 String wrong_answer_3 = rs.getString("wrong_answer_3");
                 String contents_title = rs.getString("contents_title");
-                obj = new Questions(id,questions, true_answer,wrong_answer_1,wrong_answer_2,wrong_answer_3,contents_title);
+                obj = new Questions(id, questions, true_answer, wrong_answer_1, wrong_answer_2, wrong_answer_3, contents_title);
                 questionsList.add(obj);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return questionsList;
+    }
+
+    public static boolean add(String question, String true_answer, String wrong_answer_1, String wrong_answer_2, String wrong_answer_3, String contents_title) {
+        Statement st = null;
+        String query = "INSERT INTO questions (question,true_answer,wrong_answer_1,wrong_answer_2,wrong_answer_3,contents_title) VALUES (?,?,?,?,?,?)";
+        try {
+            PreparedStatement pr= DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1,question);
+            pr.setString(2,true_answer);
+            pr.setString(3,wrong_answer_1);
+            pr.setString(4,wrong_answer_2);
+            pr.setString(5,wrong_answer_3);
+            pr.setString(6,contents_title);
+
+            return pr.executeUpdate()!=-1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }
