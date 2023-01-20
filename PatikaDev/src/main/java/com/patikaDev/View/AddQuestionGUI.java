@@ -5,19 +5,16 @@ import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Questions;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddQuestionGUI extends JFrame {
     private JPanel wrapper;
-    private JTextArea txt_question;
     private JTextField txt_true_answer;
     private JButton btn_question_add;
     private JTextField txt_false_answer_1;
     private JTextField txt_false_answer_2;
     private JTextField txt_false_answer_3;
     private JButton btn_exit;
-    private JTextPane textPane1;
+    private JTextField txt_question;
 
     public AddQuestionGUI(String contents_title) {
         add(wrapper);
