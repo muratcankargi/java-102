@@ -51,6 +51,15 @@ public class User {
         this.username = username;
     }
 
+    public static int getUserId(String username) {
+        for (User u : User.getList()) {
+            if (u.getUsername().equals(username)) {
+                return u.getId();
+            }
+        }
+        return -1;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -115,6 +124,7 @@ public class User {
         }
         return true;
     }
+
     public static boolean add(String name, String username, String password) {
         String query = "INSERT INTO users(name,username,password,type) VALUES(?,?,?,?::typename)";
         User findUser = User.getFetch(username);
@@ -139,7 +149,7 @@ public class User {
         return true;
     }
 
-        public static User getFetch(String username) {
+    public static User getFetch(String username) {
         User obj = null;
         String query = "SELECT * FROM users WHERE username=?";
         try {
@@ -162,6 +172,7 @@ public class User {
         }
         return obj;
     }
+
     public static User getFetch(int id) {
         User obj = null;
         String query = "SELECT * FROM users WHERE id=?";
@@ -188,9 +199,9 @@ public class User {
 
     public static boolean delete(int id) {
         String query = "DELETE FROM users WHERE id=?";
-        ArrayList<Course> courseList=Course.getListByUser(id);
-        for(Course c:courseList){
-        Course.delete(c.getId());
+        ArrayList<Course> courseList = Course.getListByUser(id);
+        for (Course c : courseList) {
+            Course.delete(c.getId());
         }
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
@@ -251,21 +262,21 @@ public class User {
         String query = "SELECT * FROM users WHERE username ILIKE '%{{username}}%' AND name ILIKE '%{{name}}%'  ";
         query = query.replace("{{username}}", username);
         query = query.replace("{{name}}", name);
-            if(!type.isEmpty()){
-                query+="AND type='{{type}}'::typename";
-                query=query.replace("{{type}}",type);
-            }
+        if (!type.isEmpty()) {
+            query += "AND type='{{type}}'::typename";
+            query = query.replace("{{type}}", type);
+        }
 
         return query;
     }
 
-    public static User getFetch(String username,String password) {
+    public static User getFetch(String username, String password) {
         User obj = null;
         String query = "SELECT * FROM users WHERE username=? AND password=?";
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
             pr.setString(1, username);
-            pr.setString(2,password);
+            pr.setString(2, password);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
                 if ("operator".equals(rs.getString("type"))) {
@@ -287,4 +298,5 @@ public class User {
         }
         return obj;
     }
+
 }
