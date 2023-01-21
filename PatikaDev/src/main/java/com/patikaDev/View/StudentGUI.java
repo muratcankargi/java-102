@@ -81,7 +81,7 @@ public class StudentGUI extends JFrame {
 
             tbl_contents.setModel(mdl_contents_list);
             tbl_contents.getTableHeader().setReorderingAllowed(false); //başlıkları yerinden oynatmayı kaldırıyor
-            tbl_contents.getColumnModel().getColumn(0).setMaxWidth(10);
+            tbl_contents.getColumnModel().getColumn(0).setMaxWidth(50);
         });
 
 
@@ -108,8 +108,6 @@ public class StudentGUI extends JFrame {
             row_patika_list[i++] = obj.getName();
             mdl_patika_list.addRow(row_patika_list);
         }
-
-
     }
 
     private void loadContensModel() {
