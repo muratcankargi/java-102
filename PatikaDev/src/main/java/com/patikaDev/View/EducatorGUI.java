@@ -4,7 +4,7 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Course;
- import com.patikaDev.Model.Questions;
+import com.patikaDev.Model.Questions;
 import com.patikaDev.Model.User;
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class EducatorGUI extends JFrame {
     private Object[] row_questions_list;
     private JLabel lbl_content_id;
     private JButton btn_content_delete;
-    private JPopupMenu patikaMenu; //düzeltilecek
+    private JPopupMenu patikaMenu;
     private JTable tbl_questions;
 
     static String userName;
@@ -219,7 +219,7 @@ public class EducatorGUI extends JFrame {
                     row_contents_list[i++] = contents.getTitle();
                     row_contents_list[i++] = contents.getExplanation();
                     row_contents_list[i++] = contents.getLink();
-                    row_contents_list[i++]=Helper.getPatikaName(contents.getPatika_id());
+                    row_contents_list[i++] = Helper.getPatikaName(contents.getPatika_id());
                     mdl_contents_list.addRow(row_contents_list);
 
                 }
@@ -253,7 +253,7 @@ public class EducatorGUI extends JFrame {
                     row_contents_list[i++] = contents.getTitle();
                     row_contents_list[i++] = contents.getExplanation();
                     row_contents_list[i++] = contents.getLink();
-                    row_contents_list[i++]=Helper.getPatikaName(contents.getPatika_id());
+                    row_contents_list[i++] = Helper.getPatikaName(contents.getPatika_id());
                     mdl_contents_list.addRow(row_contents_list);
 
                 }
@@ -265,16 +265,23 @@ public class EducatorGUI extends JFrame {
         DefaultTableModel clearModel = (DefaultTableModel) tbl_questions.getModel();
         clearModel.setRowCount(0);
         int i;
-        for (Questions obj : Questions.getList()) {
-            i = 0;
-            row_questions_list[i++] = obj.getId();
-            row_questions_list[i++] = obj.getQuestion();
-            row_questions_list[i++] = obj.getTrue_answer();
-            row_questions_list[i++] = obj.getWrong_answer_1();
-            row_questions_list[i++] = obj.getWrong_answer_2();
-            row_questions_list[i++] = obj.getWrong_answer_3();
-            row_questions_list[i] = obj.getContents_title();
-            mdl_questions_list.addRow(row_questions_list);
+        for (Course course : Course.getList()) {
+            for (Contents contents : Contents.getList()) {
+                for (Questions obj : Questions.getList()) {
+                    if (course.getEducator().getUsername().equals(userName)&& contents.getPatika_id()==course.getPatika_id()&&obj.getContents_title().equals(contents.getTitle())) {
+                        i = 0;
+                        row_questions_list[i++] = obj.getId();
+                        row_questions_list[i++] = obj.getQuestion();
+                        row_questions_list[i++] = obj.getTrue_answer();
+                        row_questions_list[i++] = obj.getWrong_answer_1();
+                        row_questions_list[i++] = obj.getWrong_answer_2();
+                        row_questions_list[i++] = obj.getWrong_answer_3();
+                        row_questions_list[i] = obj.getContents_title();
+                        mdl_questions_list.addRow(row_questions_list);
+                    }
+                }
+            }
         }
     }
+
 }
