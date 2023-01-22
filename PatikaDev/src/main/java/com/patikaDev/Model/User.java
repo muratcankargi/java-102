@@ -118,6 +118,7 @@ public class User {
             if (response == -1) {
                 Helper.showMessages("error");
             }
+            pr.close();
             return response != -1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -142,6 +143,7 @@ public class User {
             if (response == -1) {
                 Helper.showMessages("error");
             }
+            pr.close();
             return response != -1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -206,6 +208,7 @@ public class User {
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
             pr.setInt(1, id);
+            pr.close();
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -228,6 +231,7 @@ public class User {
             pr.setString(3, password);
             pr.setString(4, type);
             pr.setInt(5, id);
+            pr.close();
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -251,7 +255,8 @@ public class User {
                 obj.setType(rs.getString("type"));
                 userList.add(obj);
             }
-
+            st.close();
+            rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
