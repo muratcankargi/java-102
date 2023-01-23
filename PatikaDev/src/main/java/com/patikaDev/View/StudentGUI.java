@@ -64,7 +64,7 @@ public class StudentGUI extends JFrame {
             dispose();
         });
         btn_patika_katil.addActionListener(e -> {
-            if (!Helper.isAdded(patikalarim, txt_patikalar.getText())) {
+            if (!Helper.isAdded(patikalarim, txt_patikalar.getText())&&!txt_patikalar.getText().equals("")) {
                 patikalarim.add(txt_patikalar.getText());
                 txtarea_katildiginiz_patikalar.setText(txtarea_katildiginiz_patikalar.getText() + txt_patikalar.getText() + "\n");
                 cmb_patikalarim.addItem(txt_patikalar.getText());
@@ -85,16 +85,16 @@ public class StudentGUI extends JFrame {
         });
 
 
-        cmb_patika.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cmb_contents.removeAll();
-                for(Contents c:Contents.getList()){
-                    if(c.getPatika_id()==Helper.getPatikaId(cmb_patika.getSelectedItem().toString())){
-                        cmb_contents.addItem(c.getTitle());
-                    }
+        cmb_patika.addActionListener(e -> {
+            cmb_contents.removeAllItems();
+            cmb_contents.addItem("İçerik");
+            if(!cmb_patika.getSelectedItem().equals("Patika"))
+            for(Contents c:Contents.getList()){
+                if(c.getPatika_id()==Helper.getPatikaId(cmb_patika.getSelectedItem().toString())){
+                    cmb_contents.addItem(c.getTitle());
                 }
             }
+
         });
     }
 
