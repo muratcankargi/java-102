@@ -7,8 +7,6 @@ import com.patikaDev.Model.Patika;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class StudentGUI extends JFrame {
@@ -30,6 +28,13 @@ public class StudentGUI extends JFrame {
     private JComboBox cmb_patika;
     private JComboBox cmb_contents;
     private JButton btn_start;
+    private JRadioButton rbtn_answer_1;
+    private JRadioButton rbtn_answer_2;
+    private JRadioButton rbtn_answer_3;
+    private JRadioButton rbtn_answer_4;
+    private JRadioButton radioButton5;
+    private JLabel lbl_question;
+    private JLabel lbl_question_counter;
     private DefaultTableModel mdl_patika_list;
     private Object[] row_patika_list;
     private DefaultTableModel mdl_contents_list;
