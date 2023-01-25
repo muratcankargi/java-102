@@ -4,6 +4,7 @@ import com.patikaDev.Helper.Config;
 import com.patikaDev.Helper.Helper;
 import com.patikaDev.Model.Contents;
 import com.patikaDev.Model.Patika;
+import com.patikaDev.Model.Questions;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -32,13 +33,17 @@ public class StudentGUI extends JFrame {
     private JRadioButton rbtn_answer_2;
     private JRadioButton rbtn_answer_3;
     private JRadioButton rbtn_answer_4;
-    private JRadioButton radioButton5;
+    private JRadioButton rbtn_answer_5;
     private JLabel lbl_question;
     private JLabel lbl_question_counter;
+    private JPanel pnl_question;
+    private JButton btn_next;
+    private JButton bitirButton;
     private DefaultTableModel mdl_patika_list;
     private Object[] row_patika_list;
     private DefaultTableModel mdl_contents_list;
     private Object[] row_contents_list;
+    private ButtonGroup answers;
     private ArrayList<String> patikalarim = new ArrayList<>();
 
     public StudentGUI() {
@@ -50,6 +55,12 @@ public class StudentGUI extends JFrame {
         setResizable(false);
         setVisible(true);
 
+        answers = new ButtonGroup();
+        answers.add(rbtn_answer_1);
+        answers.add(rbtn_answer_2);
+        answers.add(rbtn_answer_3);
+        answers.add(rbtn_answer_4);
+        answers.add(rbtn_answer_5);
         mdl_patika_list = new DefaultTableModel();
         Object[] col_patika_list = {"ID", "Patika Adı"};
         mdl_patika_list.setColumnIdentifiers(col_patika_list);
@@ -69,7 +80,7 @@ public class StudentGUI extends JFrame {
             dispose();
         });
         btn_patika_katil.addActionListener(e -> {
-            if (!Helper.isAdded(patikalarim, txt_patikalar.getText())&&!txt_patikalar.getText().equals("")) {
+            if (!Helper.isAdded(patikalarim, txt_patikalar.getText()) && !txt_patikalar.getText().equals("")) {
                 patikalarim.add(txt_patikalar.getText());
                 txtarea_katildiginiz_patikalar.setText(txtarea_katildiginiz_patikalar.getText() + txt_patikalar.getText() + "\n");
                 cmb_patikalarim.addItem(txt_patikalar.getText());
@@ -93,14 +104,64 @@ public class StudentGUI extends JFrame {
         cmb_patika.addActionListener(e -> {
             cmb_contents.removeAllItems();
             cmb_contents.addItem("İçerik");
-            if(!cmb_patika.getSelectedItem().equals("Patika"))
-            for(Contents c:Contents.getList()){
-                if(c.getPatika_id()==Helper.getPatikaId(cmb_patika.getSelectedItem().toString())){
+            if (!cmb_patika.getSelectedItem().equals("Patika")) for (Contents c : Contents.getList()) {
+                if (c.getPatika_id() == Helper.getPatikaId(cmb_patika.getSelectedItem().toString())) {
                     cmb_contents.addItem(c.getTitle());
                 }
             }
 
         });
+
+        btn_start.addActionListener(e -> {
+            String patika = cmb_patika.getSelectedItem().toString();
+            String icerik = cmb_contents.getSelectedItem().toString();
+            if (!(icerik.equals("İçerik") || patika.equals("Patika"))) {
+                printQuestion(icerik);
+                pnl_question.setVisible(true);
+                pnl_giris.setVisible(false);
+            } else {
+                Helper.showMessages("Bir patika ve bir içerik seçiniz!");
+            }
+
+        });
+        btn_next.addActionListener(e -> {
+            counter_2++;
+            answers.clearSelection();
+            printQuestion(cmb_contents.getSelectedItem().toString());
+
+        });
+    }
+
+    int counter_2 = 0;
+
+    private void printQuestion(String contents_title) {
+        int counter_1 = 0;
+        int counter_3 = 0;
+        for (Questions ques : Questions.getList()) {
+            if (ques.getContents_title().equals(contents_title)) {
+                counter_1++;
+            }
+        }
+
+
+        for (Questions ques : Questions.getList()) {
+            if (counter_1 == counter_2)
+                break;
+            if (ques.getContents_title().equals(contents_title)) {
+                if (counter_2 == counter_3) {
+                    lbl_question.setText(ques.getQuestion());
+                    rbtn_answer_1.setText(ques.getTrue_answer());
+                    rbtn_answer_2.setText(ques.getWrong_answer_1());
+                    rbtn_answer_3.setText(ques.getWrong_answer_2());
+                    rbtn_answer_4.setText(ques.getWrong_answer_3());
+                    lbl_question_counter.setText((counter_2 + 1) + "/" + counter_1);
+                    break;
+                }
+                counter_3++;
+            }
+
+        }
+        rbtn_answer_5.setText("Boş bırak");
     }
 
     private void loadPatikaModel() {
